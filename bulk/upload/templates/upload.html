@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'admin/css/upload.css' %}">
+    <script src="{% static 'admin/js/upload.js' %}"></script> 
+    <!-- Auto-refresh the page every 3 minutes -->
+    <meta http-equiv="refresh" content="60">
+</head>
+<body class="bg-light">
+<div class="container-fluid mt-5">
+
+    <!-- Upload Section -->
+    <div class="d-flex">
+        <!-- Card Body -->
+        <div class="card shadow upload-card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="text-center">Upload File</h2>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form id="upload-form" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+
+                    <div class="form-group">
+                        <label for="id_bank_name">Bank Name:</label>
+                        {{ form.bank_name.errors }}
+                        <div class="form-control-wrapper">
+                            {{ form.bank_name }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_bank_id">Bank ID:</label>
+                        {{ form.bank_id.errors }}
+                        <div class="form-control-wrapper">
+                            {{ form.bank_id }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_merchant_name">Merchant Name:</label>
+                        {{ form.merchant_name.errors }}
+                        <div class="form-control-wrapper">
+                            {{ form.merchant_name }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_transaction_type">Transaction Type:</label>
+                        {{ form.transaction_type.errors }}
+                        <div class="form-control-wrapper">
+                            {{ form.transaction_type }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_file">Upload Files:</label>
+                        {{ form.file.errors }}
+                        <div class="form-control-wrapper">
+                            {{ form.file }}
+                        </div>
+                    </div>
+                    <a id="submit-button" 
+                       class="btn btn-primary btn-block" 
+                       href="{% url 'show_logs' bank_name=form.bank_name.value transaction_type=form.transaction_type.value %}" 
+                       onclick="submitFormAndRedirect(event)">
+                        Submit
+                    </a>
+                </form>
+            </div>
+        </div>
+
+        <!-- Error Log Table -->
+        <div class="log-errors shadow">
+            <h4 class="text-center">Error Logs</h4>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">File Name</th>
+                        <th scope="col">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% with logs|dictsortreversed:"timestamp" as sorted_logs %}
+                        {% for log in sorted_logs %}
+                            {% if log.log_type == 'error' %}
+                                <tr class="text-danger font-weight-bold">
+                                    <td>{{ log.log_type }}</td>
+                                    <td>{{ log.message }}</td>
+                                    <td>{{ log.file_name|default:"N/A" }}</td>
+                                    <td>{{ log.timestamp|date:"g:i a"|default:"N/A" }}</td>
+                                </tr>
+                            {% endif %}
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No error logs available.</td>
+                            </tr>
+                        {% endfor %}
+                    {% endwith %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Logs for Bank and Transaction Type Table -->
+    <div class="mt-4 bank-logs shadow">
+        <h4 class="text-center">Logs for {{ bank_name }} - {{ transaction_type }}</h4>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td>{{ log.log_type }}</td>
+                        <td>{{ log.message }}</td>
+                        <td>{{ log.timestamp|date:"g:i a"|default:"N/A" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center">No logs available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script type="application/json" id="valid-bank-details">
+    {{ bank_details|safe }}
+</script>
+</body>
+</html>

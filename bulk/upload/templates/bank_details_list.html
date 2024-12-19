@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configure MPR With DATABASE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'admin/css/bank_details_list.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'admin/js/bank_details_list.js' %}"></script>
+    
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Configure MPR With DATABASE</h1>
+
+        <!-- Form for file upload -->
+        <form method="POST" enctype="multipart/form-data" class="mb-5">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="bank_name" class="form-label">Bank Name</label>
+                <select id="bank_name" name="bank_name" class="form-select">
+                    <option value="">Select a Bank</option>
+                    {% for bank_name in bank_names %}
+                        <option value="{{ bank_name }}" 
+                            {% if bank_name == selected_bank_name %}selected{% endif %}>
+                            {{ bank_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="bank_id" class="form-label">Bank ID</label>
+                <select id="bank_id" name="bank_id" class="form-select">
+                    <option value="">Select a Bank ID</option>
+                    {% for bank_id in bank_ids %}
+                        <option value="{{ bank_id }}" 
+                            {% if bank_id == selected_bank_id %}selected{% endif %}>
+                            {{ bank_id }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="transaction_type" class="form-label">Transaction Type</label>
+                <select id="transaction_type" name="transaction_type" class="form-select">
+                    <option value="">Select a Transaction Type</option>
+                    <option value="SALE" {% if selected_transaction_type == "SALE" %}selected{% endif %}>SALE</option>
+                    <option value="REFUND" {% if selected_transaction_type == "REFUND" %}selected{% endif %}>REFUND</option>
+                    <option value="NET SETTLED" {% if selected_transaction_type == "NET SETTLED" %}selected{% endif %}>NET SETTLED</option>
+                </select>
+            </div>
+            
+
+            
+            <div class="mb-3">
+                <label for="uploaded_file" class="form-label">Upload File to Extract Column Names</label>
+                <input type="file" id="uploaded_file" name="uploaded_file" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Upload and Extract Column Names</button>
+        </form>
+
+        <!-- Display extracted column names if available -->
+        {% if column_names %}
+        <h2>Extracted Column Names</h2>
+        <ul class="list-group mb-5">
+            {% for column in column_names %}
+                <li class="list-group-item">{{ column }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Total Number of Columns: {{ total_columns }}</h3>
+        {% endif %}
+
+        <h2>Column Mapping</h2>
+        <form id="mappingForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="file_column" class="form-label">File Column Names</label>
+                <select id="file_column" name="file_column" class="form-select">
+                    <option value="">Select a column</option>
+                    {% for column in column_names %}
+                        <option value="{{ column }}">{{ column }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="mpr_column" class="form-label">MPR Column Names</label>
+                <select id="mpr_column" name="mpr_column" class="form-select">
+                    <option value="">Select a column</option>
+                    <option value="id">id</option>
+                    <option value="Merchant_Name">Merchant_Name</option>
+                    <option value="MID">MID</option>
+                    <option value="Transaction_Id">Transaction_Id</option>
+                    <option value="Order_Id">Order_Id</option>
+                    <option value="Transaction_Date">Transaction_Date</option>
+                    <option value="Settlement_Date">Settlement_Date</option>
+                    <option value="Refund_Request_Date">Refund_Request_Date</option>
+                    <option value="Transaction_type">Transaction_type</option>
+                    <option value="Gross_Amount">Gross_Amount</option>
+                    <option value="Aggregator_Com">Aggregator_Com </option>
+                    <option value="Acquirer_Comm">Acquirer_Comm </option>
+                    <option value="Payable_Merchant">Payable_Merchant </option>
+                    <option value="Payout_from_Nodal">Payout_from_Nodal</option>
+                    <option value="BankName_Receive_Funds">BankName_Receive_Funds</option>
+                    <option value="Nodal_Account_No">Nodal_Account_No </option>
+                    <option value="Aggregator_Name">Aggregator_Name</option>
+                    <option value="Acquirer_Name">Acquirer_Name</option>
+                    <option value="Refund_Flag">Refund_Flag </option>
+                    <option value="Payments_Type">Payments_Type</option>
+                    <option value=" MOP_Type"> MOP_Type</option>
+                    <option value="Credit_Debit_Date">Credit_Debit_Date </option>
+                    <option value="Bank_Name">Bank_Name</option>
+                    <option value="Refund_Order_Id">Refund_Order_Id</option>
+                    <option value="Acq_Id">Acq_Id</option>
+                    <option value="Approve_code">Approve_code</option>
+                    <option value="Arn_No">Arn_No</option>
+                    <option value="Card_No">Card_No</option>
+                    <option value="Tid">Tid</option>
+                    <option value="Remarks">Remarks</option>
+                    <option value="Bank_Ref_id">Bank_Ref_id</option>
+                    <option value="File_upload_Date">File_upload_Date</option>
+                    <option value="User_name">User_name</option>
+                    <option value="Recon_Status">Recon_Status</option>
+                    <option value="Mpr_Summary_Trans">Mpr_Summary_Trans</option>
+                    <option value="Merchant_code">Merchant_code</option>
+                    <option value="Rec_Fmt">Rec_Fmt</option>
+                    <option value="Card_type">Card_type</option>
+                    <option value="Intl_Amount">Intl_Amount</option>
+                    <option value="Domestic_Amount">Domestic_Amount</option>
+                    <option value="UDF1">UDF1</option>
+                    <option value="UDF2">UDF2</option>
+                    <option value="UDF3">UDF3</option>
+                    <option value="UDF4">UDF4</option>
+                    <option value="UDF5">UDF5</option>
+                    <option value="GST_Number">GST_Number</option>
+                    <option value="Credit_Debit_Amount">Credit_Debit_Amount</option>
+                    <!-- Add all other fields -->
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="validation_rules" class="form-label">Validation Rules</label>
+                <textarea id="validation_rules" name="validation_rules" 
+                          class="form-control" 
+                          rows="8" 
+                          style="width: 100%;"
+                          placeholder='e.g., {"Transaction_Id": {"required": true, "type": "string", "min_length": 10}}'></textarea>
+            </div>
+            
+            <!-- Include the form fields related to bank, transaction, and other mappings here -->
+            
+            
+
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="mapping_locked" name="mapping_locked" value="1">
+                <label class="form-check-label" for="mapping_locked">Lock Mapping</label>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="lockMapping()">Map and Save</button>
+        </form>
+
+        <!-- Add Mapping Lock Table -->
+        <h2>Locked Mappings</h2>
+        <table class="table table-bordered" id="lockedMappingsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>File Column</th>
+                    <th>MPR Column</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically added using JavaScript -->
+            </tbody>
+        </table>
+
+        <button type="button" class="btn btn-secondary mt-3" onclick="showPreviewModal()">Preview Mappings</button>
+
+        <!-- Preview Modal -->
+        <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="previewModalLabel">Preview Locked Mappings</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="previewMappingList" class="list-group">
+                            <!-- Dynamically populated preview list -->
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="saveMappings()">Save All Mappings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

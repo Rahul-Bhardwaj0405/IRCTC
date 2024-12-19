@@ -1,0 +1,191 @@
+/* General Styling */
+body {
+    background: linear-gradient(to bottom right, #f0f9ff, #cde7f3); /* Soft gradient for a modern look */
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+}
+
+
+/* Upload Card */
+.upload-card {
+    width: 60%;
+    margin-right: 1rem;
+    background-color: #fdfdff; /* Soft white-blue for the card */
+    border: 1px solid #dfe6f1; /* Subtle border color */
+    border-radius: 10px; /* Rounded corners for the card */
+
+
+    flex: 0 0 auto; /* Fix height increase without pushing */
+    height: 50vh; /* Increase height (was 40vh) */
+}
+
+.upload-card .card-header {
+    background-color: #007bff; /* Bootstrap Primary */
+    color: #ffffff;
+    border-top-left-radius: 10px; /* Round top left */
+    border-top-right-radius: 10px; /* Round top right */
+}
+
+.upload-card .card-body {
+    overflow-y: auto;
+    background-color: #f8f9fc; /* Very light blue */
+    border-bottom-left-radius: 10px; /* Round bottom left */
+    border-bottom-right-radius: 10px; /* Round bottom right */
+}
+
+/* Log Errors Section */
+.log-errors {
+    width: 40%;
+    overflow-y: auto;
+    background: #fdfdff; /* Soft white-blue for consistency */
+    padding: 1rem;
+    border-radius: 10px; /* Rounded corners */
+    border: 1px solid #dfe6f1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    flex: 0 0 auto; /* Fix height increase without pushing */
+    height: 50vh; /* Increase height (was 40vh) */
+}
+
+.log-errors h4 {
+    background-color: #17a2b8; /* Bootstrap Info color */
+    color: #ffffff;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 8px; /* Round corners for header */
+}
+
+/* Bank Logs Section */
+.bank-logs {
+    margin-top: 2rem;
+    width: 100%;
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 10px; /* Rounded corners */
+    border: 1px solid #dfe6f1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fc; /* Light blue background */
+}
+
+.bank-logs h4 {
+    background-color: #28a745; /* Bootstrap Success color */
+    color: #ffffff;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 8px; /* Round corners for header */
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 10px; /* Rounded corners for table */
+}
+
+.table thead {
+    background-color: #007bff; /* Header background */
+    color: #fff;
+    border-top-left-radius: 10px; /* Round top left */
+    border-top-right-radius: 10px; /* Round top right */
+}
+
+.table tbody tr:hover {
+    background-color: #e2f0ff; /* Light blue hover effect */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9; /* Light gray for striping */
+}
+
+.table td, .table th {
+    padding: 14px; /* Spacious padding for better readability */
+    text-align: center;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px; /* Rounded corners for buttons */
+    padding: 12px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Error Message Alerts */
+.alert {
+    background-color: #f8d7da; /* Light red background for errors */
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 10px; /* Rounded corners for alert */
+    padding: 15px; /* Spacious padding */
+    font-size: 1.1rem; /* Slightly larger text */
+}
+
+/* Error styling for invalid inputs or error messages */
+.form-control.is-invalid {
+    border-color: #dc3545; /* Red border for error input fields */
+    background-color: #f8d7da; /* Light red background for errors */
+}
+
+.form-control.is-invalid:focus {
+    border-color: #dc3545; /* Red focus border */
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); /* Red shadow for focus */
+}
+
+
+/* Styling for Form Labels */
+.form-group label {
+    font-size: 1.2rem; /* Larger font size for labels */
+    font-weight: bold; /* Bold for emphasis */
+    color: #495057; /* Subtle dark color */
+    margin-bottom: 0.5rem; /* Spacing below labels */
+}
+
+/* Styling for Form Controls (Input, Select, File Upload) */
+.form-control, .custom-file-input, .custom-select {
+    font-size: 1.1rem; /* Larger font size for inputs and dropdowns */
+    padding: 12px 15px; /* Spacious padding */
+    border-radius: 8px; /* Rounded corners for inputs */
+    border: 1px solid #ced4da; /* Subtle border color */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus, .custom-file-input:focus, .custom-select:focus {
+    border-color: #80bdff; /* Blue border on focus */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Light blue glow */
+}
+
+/* Styling for File Upload Button */
+.custom-file-input {
+    border-radius: 8px; /* Rounded corners */
+    padding: 12px; /* Larger padding */
+    font-size: 1.1rem; /* Larger font size */
+}
+
+.custom-file-label {
+    font-size: 1.1rem;
+    border-radius: 8px; /* Rounded corners for file input */
+}
+
+/* Button Styling */
+.btn-primary {
+    padding: 14px 25px; /* Larger button padding */
+    font-size: 1.1rem; /* Slightly larger font size */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.03); /* Slight zoom effect */
+    transition: all 0.3s ease-in-out;
+}
+

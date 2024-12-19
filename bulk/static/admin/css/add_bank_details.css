@@ -1,0 +1,120 @@
+/* General Styling */
+body {
+    background: linear-gradient(135deg, #fef3e3, #ffe5d9); /* Warm peach-to-light-orange gradient */
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #444; /* Slightly darker gray for readability */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container Styling */
+.container {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 12px; /* Softer rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Deeper shadow for a lifted look */
+    max-width: 800px;
+    margin: 2rem auto;
+    border: 1px solid #f0d8c8; /* Subtle light border for contrast */
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Header Styling */
+h2 {
+    color: #d87d4a; /* Rich orange tone for a warm feel */
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 2.2rem; /* Bold, prominent header */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Form Input Fields */
+form .mb-3 label {
+    font-weight: 700;
+    color: #5c5c5c; /* Darker gray for better contrast */
+    font-size: 1.1rem;
+}
+
+form .mb-3 input {
+    border: 2px solid #e8c2ad; /* Soft peach border */
+    border-radius: 8px; /* Softer corners for inputs */
+    padding: 0.9rem 1rem;
+    font-size: 1.1rem;
+    color: #333;
+    background-color: #fffdf8; /* Light cream background for input fields */
+    transition: all 0.3s ease-in-out;
+}
+
+form .mb-3 input:focus {
+    border-color: #ff944d; /* Bright orange on focus */
+    box-shadow: 0 0 8px rgba(255, 148, 77, 0.4); /* Orange glow effect */
+    outline: none;
+    transform: scale(1.02); /* Slight scale effect on focus */
+}
+
+/* Button Styling */
+.btn-primary {
+    background: linear-gradient(90deg, #f9a572, #ff8a4c); /* Warm gradient for buttons */
+    border: none;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 0.9rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #ff7c48, #ff6a2b); /* Deeper orange on hover */
+    transform: translateY(-3px) scale(1.03); /* Hover lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem;
+        max-width: 90%;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    form .mb-3 label {
+        font-size: 1rem;
+    }
+
+    form .mb-3 input {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+
+    .btn-primary {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
